@@ -13,4 +13,38 @@
         <version>2.1.0.RELEASE</version>
     </parent>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.philips.lighting</groupId>
+            <artifactId>hue-sdk</artifactId>
+            <version>1.21.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.philips.lighting</groupId>
+                            <artifactId>hue-sdk</artifactId>
+                            <version>1.21.0</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/sdk/huecppsdk-wrapper.jar</file>
+                            <javadoc>${basedir}/src/sdk/huecppsdk-wrapper-javadoc.jar</javadoc>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
