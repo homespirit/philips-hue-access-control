@@ -1,0 +1,26 @@
+hue:
+  users:
+  - id: the-hue-user-id
+    profiles:
+    - some-profile
+  profiles:
+    some-profile:
+      lights:
+      - operations:
+        - create
+      - ids: [2, 3, 5]
+        operations:
+        - read
+        - state
+    another-profile:
+      lights:
+      - ids: [2, 3, 5]
+        operations:
+        - read
+        - state
+      groups:
+      - ids: [2, 3]
+        operations:
+        - read
+        - state
+        - update
