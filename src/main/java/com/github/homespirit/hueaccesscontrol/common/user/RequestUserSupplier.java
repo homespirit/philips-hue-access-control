@@ -1,10 +1,9 @@
 package com.github.homespirit.hueaccesscontrol.common.user;
 
+import com.github.homespirit.hueaccesscontrol.common.api.Api;
 import com.github.homespirit.hueaccesscontrol.common.user.exception.CannotSupplyUser;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Pattern;
 
 public class RequestUserSupplier implements CurrentUserSupplier {
 
@@ -15,8 +14,7 @@ public class RequestUserSupplier implements CurrentUserSupplier {
     }
 
     public String get() {
-        var pattern = Pattern.compile("(?<=^\\/api\\/)(?!\\/).*(?=\\/)"); // todo
-        var matcher = pattern.matcher(request.getServletPath());
+        var matcher = Api.USER_ID_PATTERN.matcher(request.getServletPath());
         if (matcher.find()) {
             return matcher.group();
         }

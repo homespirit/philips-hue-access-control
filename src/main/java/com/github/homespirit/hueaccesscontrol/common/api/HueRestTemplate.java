@@ -36,4 +36,22 @@ public class HueRestTemplate {
         );
     }
 
+    public <TDto> ResponseEntity<TDto> read(HueApiDefinition<TDto> apiDefinition, int id) {
+        return restTemplate.exchange(
+                bridgeConfig.createPath(
+                        currentUserSupplier.get(),
+                        createResourcePath(apiDefinition, id)
+                ),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<TDto>() {
+                }
+        );
+    }
+
+    private static String createResourcePath(HueApiDefinition<?> apiDefinition, int id) {
+        return apiDefinition.path() + "/" + id;
+    }
+
 }
+
