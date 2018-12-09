@@ -1,12 +1,15 @@
 package com.github.homespirit.hueaccesscontrol.common.api;
 
+import com.github.homespirit.hueaccesscontrol.common.api.dto.UpdateStatus;
 import com.github.homespirit.hueaccesscontrol.common.config.BridgeConfig;
 import com.github.homespirit.hueaccesscontrol.common.user.CurrentUserSupplier;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 
 public class HueRestTemplate {
@@ -45,6 +48,19 @@ public class HueRestTemplate {
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<TDto>() {
+                }
+        );
+    }
+
+    public <TDto> ResponseEntity<List<UpdateStatus<?>>> update(HueApiDefinition<TDto> apiDefinition, int id, TDto dto) {
+        return restTemplate.exchange(
+                bridgeConfig.createPath(
+                        currentUserSupplier.get(),
+                        createResourcePath(apiDefinition, id)
+                ),
+                HttpMethod.PUT,
+                new HttpEntity<>(dto),
+                new ParameterizedTypeReference<List<UpdateStatus<?>>>() {
                 }
         );
     }
