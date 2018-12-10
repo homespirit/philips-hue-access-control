@@ -9,7 +9,7 @@ public class LightsApi implements HueApiDefinition<Light> {
 
     @Override
     public String path() {
-        return "/lights";
+        return "lights";
     }
 
     @Override
