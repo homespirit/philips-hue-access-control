@@ -1,5 +1,6 @@
 package com.github.homespirit.hueaccesscontrol.common.api;
 
+import com.github.homespirit.hueaccesscontrol.common.api.dto.DeleteStatus;
 import com.github.homespirit.hueaccesscontrol.common.api.dto.UpdateStatus;
 import com.github.homespirit.hueaccesscontrol.common.config.BridgeConfig;
 import com.github.homespirit.hueaccesscontrol.common.user.CurrentUserSupplier;
@@ -48,6 +49,19 @@ public class HueRestTemplate {
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<TDto>() {
+                }
+        );
+    }
+
+    public <TDto> ResponseEntity<List<DeleteStatus>> delete(HueApiDefinition<TDto> apiDefinition, int id) {
+        return restTemplate.exchange(
+                bridgeConfig.createPath(
+                        currentUserSupplier.get(),
+                        createResourcePath(apiDefinition, id)
+                ),
+                HttpMethod.DELETE,
+                null,
+                new ParameterizedTypeReference<List<DeleteStatus>>() {
                 }
         );
     }

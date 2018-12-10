@@ -2,6 +2,7 @@ package com.github.homespirit.hueaccesscontrol.lights;
 
 import com.github.homespirit.hueaccesscontrol.common.api.Api;
 import com.github.homespirit.hueaccesscontrol.common.api.HueRestTemplate;
+import com.github.homespirit.hueaccesscontrol.common.api.dto.DeleteStatus;
 import com.github.homespirit.hueaccesscontrol.common.api.dto.UpdateStatus;
 import com.github.homespirit.hueaccesscontrol.lights.dto.Light;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,16 @@ public class LightsController {
 
     @PutMapping("{id}")
     public ResponseEntity<List<UpdateStatus<?>>> update(@PathVariable int id, @RequestBody @Valid Light light) {
+        return hueRestTemplate.update(LightsApi.DEFINITION, id, light);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<List<DeleteStatus>> delete(@PathVariable int id) {
+        return hueRestTemplate.delete(LightsApi.DEFINITION, id);
+    }
+
+    @PutMapping("state/{id}")
+    public ResponseEntity<List<UpdateStatus<?>>> updateState(@PathVariable int id, @RequestBody @Valid Light light) {
         return hueRestTemplate.update(LightsApi.DEFINITION, id, light);
     }
 
