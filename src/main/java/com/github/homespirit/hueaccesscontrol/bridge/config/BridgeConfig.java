@@ -1,4 +1,4 @@
-package com.github.homespirit.hueaccesscontrol.common.config;
+package com.github.homespirit.hueaccesscontrol.bridge.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @ConfigurationProperties("hue.bridge")
 public class BridgeConfig {
 
-    private static String URL_TEMPLATE = "%s://%s:%s/api/%s/%s";
+    private static String URL_TEMPLATE = "%s://%s:%s/api/%s%s";
 
     @NotNull
     private String hostname;

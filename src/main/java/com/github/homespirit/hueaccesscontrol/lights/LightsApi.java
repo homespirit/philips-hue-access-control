@@ -1,19 +1,29 @@
 package com.github.homespirit.hueaccesscontrol.lights;
 
-import com.github.homespirit.hueaccesscontrol.common.api.HueApiDefinition;
+import com.github.homespirit.hueaccesscontrol.bridge.api.HueCrudApi;
 import com.github.homespirit.hueaccesscontrol.lights.dto.Light;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.stereotype.Service;
 
-public class LightsApi implements HueApiDefinition<Light> {
+import java.util.Map;
 
-    public static final LightsApi DEFINITION = new LightsApi();
+@Service
+public class LightsApi extends HueCrudApi<Light> {
 
     @Override
     public String path() {
-        return "lights";
+        return "/lights";
     }
 
     @Override
-    public Class<Light> type() {
-        return Light.class;
+    public ParameterizedTypeReference<Map<Integer, Light>> listResponseType() {
+        return new ParameterizedTypeReference<>() {
+        };
+    }
+
+    @Override
+    public ParameterizedTypeReference<Light> readResponseType() {
+        return new ParameterizedTypeReference<>() {
+        };
     }
 }

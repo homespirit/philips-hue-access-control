@@ -1,6 +1,6 @@
 package com.github.homespirit.hueaccesscontrol.lights.dto;
 
-import com.github.homespirit.hueaccesscontrol.common.api.dto.Device;
+import com.github.homespirit.hueaccesscontrol.bridge.dto.Device;
 import lombok.Data;
 
 @Data
@@ -32,6 +32,17 @@ public class Light extends Device {
         private String function;
 
         private String direction;
+
+        private Startup startup;
+
+        @Data
+        private static class Startup {
+
+            private String mode;
+
+            private Boolean configured;
+
+        }
 
     }
 

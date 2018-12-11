@@ -3,8 +3,8 @@ package com.github.homespirit.hueaccesscontrol.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.homespirit.hueaccesscontrol.GroupsConfig;
-import com.github.homespirit.hueaccesscontrol.common.api.HueRestTemplate;
-import com.github.homespirit.hueaccesscontrol.common.config.BridgeConfig;
+import com.github.homespirit.hueaccesscontrol.bridge.api.HueRestTemplate;
+import com.github.homespirit.hueaccesscontrol.bridge.config.BridgeConfig;
 import com.github.homespirit.hueaccesscontrol.common.user.CurrentUserSupplier;
 import com.github.homespirit.hueaccesscontrol.common.user.RequestUserSupplier;
 import com.github.homespirit.hueaccesscontrol.common.user.StaticUserSupplier;
@@ -15,9 +15,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableConfigurationProperties
@@ -36,21 +37,11 @@ public class AppConfig {
 
     @Bean
     public HueRestTemplate hueRestTemplate(BridgeConfig bridgeConfig, CurrentUserSupplier currentUserSupplier) {
-        var restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(0, createHueRestMessageConverter());
-        return new HueRestTemplate(bridgeConfig, currentUserSupplier, restTemplate);
-    }
-
-    @Autowired
-    public void configureObjectMapper(ObjectMapper mapper) {
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
-
-    @Bean
-    public MappingJackson2HttpMessageConverter jsonConverter(ObjectMapper mapper) {
-        var converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(mapper);
-        return converter;
+        var restTemplate = new HueRestTemplate(bridgeConfig, currentUserSupplier);
+        var converters = new ArrayList<HttpMessageConverter<?>>(List.of(createHueRestMessageConverter()));
+        converters.addAll(restTemplate.getMessageConverters());
+        restTemplate.setMessageConverters(converters);
+        return restTemplate;
     }
 
     private ObjectMapper createHueRestObjectMapper() {
@@ -59,7 +50,7 @@ public class AppConfig {
         return objectMapper;
     }
 
-    private HttpMessageConverter createHueRestMessageConverter() {
+    private HttpMessageConverter<?> createHueRestMessageConverter() {
         var jacksonConverter = new MappingJackson2HttpMessageConverter();
         jacksonConverter.setObjectMapper(createHueRestObjectMapper());
         return jacksonConverter;

@@ -1,4 +1,4 @@
-package com.github.homespirit.hueaccesscontrol.common.api;
+package com.github.homespirit.hueaccesscontrol.bridge;
 
 import java.util.regex.Pattern;
 

@@ -1,4 +1,4 @@
-package com.github.homespirit.hueaccesscontrol.common.api.dto;
+package com.github.homespirit.hueaccesscontrol.bridge.dto;
 
 import lombok.Data;
 

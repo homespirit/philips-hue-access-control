@@ -1,6 +1,6 @@
 package com.github.homespirit.hueaccesscontrol.common.user;
 
-import com.github.homespirit.hueaccesscontrol.common.api.Api;
+import com.github.homespirit.hueaccesscontrol.bridge.Api;
 import com.github.homespirit.hueaccesscontrol.common.user.exception.CannotSupplyUser;
 
 import javax.servlet.http.HttpServletRequest;
