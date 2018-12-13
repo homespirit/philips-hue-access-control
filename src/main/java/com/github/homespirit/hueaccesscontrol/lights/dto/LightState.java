@@ -25,6 +25,6 @@ public class LightState {
 
     private String mode;
 
-    private boolean reachable;
+    private Boolean reachable;
 
 }

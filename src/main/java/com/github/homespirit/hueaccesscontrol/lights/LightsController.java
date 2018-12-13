@@ -17,7 +17,6 @@ public class LightsController {
 
     public static final String PATH = Api.BASE_PATH + "/lights";
 
-
     private LightsApi api;
 
     public LightsController(

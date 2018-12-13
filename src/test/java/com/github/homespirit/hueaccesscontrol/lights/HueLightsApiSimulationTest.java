@@ -14,6 +14,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -60,18 +62,22 @@ public class HueLightsApiSimulationTest {
     @Test
     public void testRead() throws JSONException {
         var directResponse = restTemplate.exchange(
-                bridgeConfig.createPath(bridgeConfig.getUser(), lightsApi.path(1)),
-                HttpMethod.GET,
-                null,
-                String.class
-        );
-
-        var proxiedResponse = proxyRestTemplate.exchange(
-                LightsController.PATH + "/1",
+                bridgeConfig.createPath(bridgeConfig.getUser(), lightsApi.resourcePath()),
                 HttpMethod.GET,
                 null,
                 String.class,
-                "userId"
+                Map.of("id", 1)
+        );
+
+        var proxiedResponse = proxyRestTemplate.exchange(
+                LightsController.PATH + "/{id}",
+                HttpMethod.GET,
+                null,
+                String.class,
+                Map.of(
+                        "userId", "userId",
+                        "id", 1
+                )
         );
         assertEquals(directResponse.getStatusCode(), directResponse.getStatusCode());
         assertEquals(directResponse.getHeaders(), directResponse.getHeaders());

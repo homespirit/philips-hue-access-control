@@ -18,7 +18,7 @@ public class RequestUserSupplier implements CurrentUserSupplier {
         if (matcher.find()) {
             return matcher.group();
         }
-        throw new CannotSupplyUser("UserId cannot be extracted from path.");
+        throw new CannotSupplyUser("UserId cannot be extracted from resourcePath.");
     }
 
 }
