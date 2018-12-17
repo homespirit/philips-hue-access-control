@@ -1,14 +1,14 @@
 package com.github.homespirit.hueaccesscontrol.groups;
 
 import com.github.homespirit.hueaccesscontrol.bridge.api.HueCrudApi;
-import com.github.homespirit.hueaccesscontrol.lights.dto.Light;
+import com.github.homespirit.hueaccesscontrol.groups.dto.Group;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
-public class GroupsApi extends HueCrudApi<Light> {
+public class GroupsApi extends HueCrudApi<Group> {
 
     @Override
     public String path() {
@@ -16,13 +16,13 @@ public class GroupsApi extends HueCrudApi<Light> {
     }
 
     @Override
-    public ParameterizedTypeReference<Map<Integer, Light>> listResponseType() {
+    public ParameterizedTypeReference<Map<Integer, Group>> listResponseType() {
         return new ParameterizedTypeReference<>() {
         };
     }
 
     @Override
-    public ParameterizedTypeReference<Light> readResponseType() {
+    public ParameterizedTypeReference<Group> readResponseType() {
         return new ParameterizedTypeReference<>() {
         };
     }

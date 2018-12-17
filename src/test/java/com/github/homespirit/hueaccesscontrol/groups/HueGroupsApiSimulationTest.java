@@ -1,7 +1,6 @@
 package com.github.homespirit.hueaccesscontrol.groups;
 
 import com.github.homespirit.hueaccesscontrol.bridge.config.BridgeConfig;
-import com.github.homespirit.hueaccesscontrol.lights.LightsApi;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class HueGroupsApiSimulationTest {
     private BridgeConfig bridgeConfig;
 
     @Autowired
-    private LightsApi lightsApi;
+    private GroupsApi groupsApi;
 
     @Before
     public void setup() {
@@ -42,7 +41,7 @@ public class HueGroupsApiSimulationTest {
     @Test
     public void testList() throws JSONException {
         var directResponse = restTemplate.exchange(
-                bridgeConfig.createPath(bridgeConfig.getUser(), lightsApi.path()),
+                bridgeConfig.createPath(bridgeConfig.getUser(), groupsApi.path()),
                 HttpMethod.GET,
                 null,
                 String.class
@@ -63,7 +62,7 @@ public class HueGroupsApiSimulationTest {
     @Test
     public void testRead() throws JSONException {
         var directResponse = restTemplate.exchange(
-                bridgeConfig.createPath(bridgeConfig.getUser(), lightsApi.resourcePath()),
+                bridgeConfig.createPath(bridgeConfig.getUser(), groupsApi.resourcePath()),
                 HttpMethod.GET,
                 null,
                 String.class,
