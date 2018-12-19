@@ -7,8 +7,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import java.util.List;
 import java.util.Map;
 
-public abstract class HueCrudApi<TDto> extends HueApi implements ListApi<Map<Integer, TDto>>, ReadApi<Integer, TDto>,
-        UpdateApi<Integer, TDto, List<UpdateStatus<?>>>, DeleteApi<Integer, List<DeleteStatus>> {
+public abstract class HueCrudApi<TId, TDto> extends HueApi implements ListApi<Map<TId, TDto>>, ReadApi<TId, TDto>,
+        UpdateApi<TId, TDto, List<UpdateStatus<?>>>, DeleteApi<TId, List<DeleteStatus>> {
 
     @Override
     public ParameterizedTypeReference<List<UpdateStatus<?>>> updateResponseType() {
