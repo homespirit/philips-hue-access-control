@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class GroupsApi extends HueCrudApi<Group> {
+public class GroupsApi extends HueCrudApi<Integer, Group> {
 
     @Override
     public String path() {
